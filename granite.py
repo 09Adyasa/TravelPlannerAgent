@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-
+import streamlit as st
 from ibm_watsonx_ai import Credentials
 from ibm_watsonx_ai.foundation_models import ModelInference
 
@@ -10,10 +10,19 @@ from ibm_watsonx_ai.foundation_models import ModelInference
 
 load_dotenv()
 
-API_KEY = os.getenv("IBM_API_KEY")
-PROJECT_ID = os.getenv("IBM_PROJECT_ID")
-URL = os.getenv("IBM_URL")
-MODEL_ID = os.getenv("MODEL_ID")
+if "IBM_API_KEY" in st.secrets:
+
+    API_KEY = st.secrets["IBM_API_KEY"]
+    PROJECT_ID = st.secrets["IBM_PROJECT_ID"]
+    URL = st.secrets["IBM_URL"]
+    MODEL_ID = st.secrets["MODEL_ID"]
+
+else:
+
+    API_KEY = os.getenv("IBM_API_KEY")
+    PROJECT_ID = os.getenv("IBM_PROJECT_ID")
+    URL = os.getenv("IBM_URL")
+    MODEL_ID = os.getenv("MODEL_ID")
 
 # -----------------------------------
 # Credentials
